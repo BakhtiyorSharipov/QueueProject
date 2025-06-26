@@ -2,7 +2,15 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{0B8173B6-0ADF-4525-9BD7-8D4E82FC8B77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{6C0D6EC2-6C79-463B-B5F2-EEB2252E30F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue.Domain", "Queue.Domain\Queue.Domain.csproj", "{6C0D6EC2-6C79-463B-B5F2-EEB2252E30F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{8A1E436E-9B29-42F7-892F-5262DA244CAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue.Application", "Queue.Application\Queue.Application.csproj", "{B362D51B-E8E9-4BA4-B0ED-29B497627E2A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{7A76377E-0AF4-4B1F-90BD-421598DD42A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueInfrastructure", "QueueInfrastructure\QueueInfrastructure.csproj", "{B51F6762-0E16-43BE-9857-0F0D30F92BD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,8 +22,18 @@ Global
 		{6C0D6EC2-6C79-463B-B5F2-EEB2252E30F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C0D6EC2-6C79-463B-B5F2-EEB2252E30F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C0D6EC2-6C79-463B-B5F2-EEB2252E30F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B362D51B-E8E9-4BA4-B0ED-29B497627E2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B362D51B-E8E9-4BA4-B0ED-29B497627E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B362D51B-E8E9-4BA4-B0ED-29B497627E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B362D51B-E8E9-4BA4-B0ED-29B497627E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B51F6762-0E16-43BE-9857-0F0D30F92BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B51F6762-0E16-43BE-9857-0F0D30F92BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B51F6762-0E16-43BE-9857-0F0D30F92BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B51F6762-0E16-43BE-9857-0F0D30F92BD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6C0D6EC2-6C79-463B-B5F2-EEB2252E30F0} = {0B8173B6-0ADF-4525-9BD7-8D4E82FC8B77}
+		{B362D51B-E8E9-4BA4-B0ED-29B497627E2A} = {8A1E436E-9B29-42F7-892F-5262DA244CAF}
+		{B51F6762-0E16-43BE-9857-0F0D30F92BD4} = {7A76377E-0AF4-4B1F-90BD-421598DD42A8}
 	EndGlobalSection
 EndGlobal
