@@ -1,37 +1,52 @@
+using System.Security.AccessControl;
 using Application.Common.Interfaces.Repository;
 using Domain.Model;
+using Microsoft.EntityFrameworkCore;
+using QueueInfrastructure.Persistence.DataBase;
 
 namespace QueueInfrastructure.Persistence.Repositories;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
+    private readonly DbSet<TEntity> _set;
+    private readonly EFContext _context;
+
+    public Repository(EFContext context)
+    {
+        _set = context.Set<TEntity>();
+        _context = context;
+    }
     public TEntity FindById(int id)
     {
-        throw new NotImplementedException();
+        var foundEntity = _set.Find(id);
+        if (foundEntity==null)
+        {
+            throw new ArgumentNullException(nameof(foundEntity));
+        }
+
+        return foundEntity;
     }
 
-    public IQueryable<TEntity> GetAll()
+    public IQueryable<TEntity> GetAll(int pageList, int pageNumber)
     {
-        throw new NotImplementedException();
+        return _set.Skip<TEntity>(pageList * pageNumber).Take<TEntity>(pageList);
     }
 
     public void Add(TEntity entity)
     {
-        throw new NotImplementedException();
+        _set.Add(entity);
     }
 
     public void Update(TEntity entity)
     {
-        throw new NotImplementedException();
+        _set.Update(entity);
     }
 
     public void Delete(TEntity entity)
     {
-        throw new NotImplementedException();
+        _set.Remove(entity);
     }
 
-    public int SaveChanges()
-    {
-        throw new NotImplementedException();
-    }
+    public int SaveChanges()=>_context.SaveChanges();
+    
 }
