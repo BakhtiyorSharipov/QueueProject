@@ -13,13 +13,14 @@ public class CustomerTableConfiguration: IEntityTypeConfiguration<CustomerEntity
         builder.HasKey(s => s.Id);
         builder.HasAlternateKey(s => new { s.EmailAddres, s.PhoneNumber });
         builder.HasMany(s => s.ReviewEntities)
-            .WithOne(s => s.CustomerEntity)
-            .HasForeignKey(s=>new {s.CustomerId, s.EmployeeId, s.QueueId});
-        builder.HasOne(s => s.BlockedCustomerEntity)
-            .WithOne(s => s.CustomerEntity)
-            .HasForeignKey<BlockedCustomerEntity>(s=>new {s.CustomerId, s.CompanyId});
+            .WithOne(s => s.CustomerEntity);
+            // .HasForeignKey(s=>new {s.CustomerId, s.EmployeeId, s.QueueId});
+            builder.HasOne(s => s.BlockedCustomerEntity)
+                .WithOne(s => s.CustomerEntity)
+                .HasForeignKey<BlockedCustomerEntity>(s => s.CustomerEntityId);
+            // .HasForeignKey<BlockedCustomerEntity>(s=>new {s.CustomerId, s.CompanyId});
         builder.HasMany(s => s.QueueEntities)
-            .WithOne(s => s.CustomerEntity)
-            .HasForeignKey(s => new { s.CustomerId, s.EmployeeId, s.ServiceId });
+            .WithOne(s => s.CustomerEntity);
+            // .HasForeignKey(s => new { s.CustomerId, s.EmployeeId, s.ServiceId });
     }
 }

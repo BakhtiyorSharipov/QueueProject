@@ -8,7 +8,7 @@ public interface IBaseService<TEntity, TResponseModel, TRequestModel>
     where TResponseModel: BaseResponse
     where TRequestModel: BaseRequest
 {
-    IEnumerable<TResponseModel> GetAll();
+    IEnumerable<TResponseModel> GetAll(int pageList, int pageNumber);
     TResponseModel GetById(int id);
     void Add(TRequestModel request);
     TResponseModel Update(int id, TRequestModel request);

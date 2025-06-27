@@ -11,7 +11,8 @@ public class CompanyTableConfiguration: IEntityTypeConfiguration<CompanyEntity>
         builder.ToTable("Companies");
         builder.HasKey(s => s.Id);
         builder.HasMany(s => s.ServiceEntities)
-            .WithOne(s => s.CompanyEntity).HasForeignKey(s=>s.CompanyId);
+            .WithOne(s => s.CompanyEntity);
+            // .HasForeignKey(s=>s.CompanyId);
         builder.HasAlternateKey(s => new {s.EmailAddress, s.PhoneNumber});
     }
 }

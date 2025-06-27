@@ -2,9 +2,9 @@ namespace Application.Requests.QueueRequest;
 
 public class QueueRequestModel: BaseRequest
 {
-    public int EmployeeId { get; set; }
-    public int CustomerId { get; set; }
-    public int ServiceId { get; set; }
+    public int EmployeeEntityId { get; set; }
+    public int CustomerEntityId { get; set; }
+    public int ServiceEntityId { get; set; }
     public string DayOfWeek { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
