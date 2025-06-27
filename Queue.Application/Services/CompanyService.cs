@@ -1,4 +1,5 @@
 using System.Net;
+using Application.Common.Interfaces;
 using Application.Common.Interfaces.Repository;
 using Application.Exceptions;
 using Application.Requests.CompanyRequest;
@@ -8,7 +9,7 @@ using Domain.Model;
 
 namespace Application.Services;
 
-public class CompanyService: BaseService<CompanyEntity, CompanyResponseModel, CompanyRequestModel>
+public class CompanyService: BaseService<CompanyEntity, CompanyResponseModel, CompanyRequestModel>,ICompanyService
 {
     private readonly ICompanyRepository _companyRepository;
     private readonly IMapper _mapper;

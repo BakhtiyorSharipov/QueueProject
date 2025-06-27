@@ -2,7 +2,7 @@ namespace Domain.Model;
 
 public class EmployeeEntity: BaseEntity
 {
-    public int ServiceId { get; set; }
+    public int ServiceEntityId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string  Position { get; set; }

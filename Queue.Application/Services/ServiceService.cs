@@ -1,4 +1,5 @@
 using System.Net;
+using Application.Common.Interfaces;
 using Application.Common.Interfaces.Repository;
 using Application.Exceptions;
 using Application.Requests.ServiceRequest;
@@ -8,7 +9,7 @@ using Domain.Model;
 
 namespace Application.Services;
 
-public class ServiceService: BaseService<ServiceEntity, ServiceResponseModel, ServiceRequestModel>
+public class ServiceService: BaseService<ServiceEntity, ServiceResponseModel, ServiceRequestModel>,IServiceService
 {
     private readonly IServiceRepository _serviceRepository;
     private readonly IMapper _mapper;

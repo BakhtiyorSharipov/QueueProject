@@ -2,9 +2,9 @@ namespace Domain.Model;
 
 public class ReviewEntity: BaseEntity
 {
-    public int CustomerId { get; set; }
-    public int EmployeeId { get; set; }
-    public int QueueId { get; set; }
+    public int CustomerEntityId { get; set; }
+    public int EmployeeEntityId { get; set; }
+    public int QueueEntityId { get; set; }
     public int Grade { get; set; }  
     public string? ReviewText { get; set; }
     

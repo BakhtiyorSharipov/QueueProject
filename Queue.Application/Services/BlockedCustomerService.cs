@@ -1,4 +1,5 @@
 using System.Net;
+using Application.Common.Interfaces;
 using Application.Common.Interfaces.Repository;
 using Application.Exceptions;
 using Application.Requests.BlockedCustomerRequest;
@@ -8,7 +9,7 @@ using Domain.Model;
 
 namespace Application.Services;
 
-public class BlockedCustomerService: BaseService<BlockedCustomerEntity, BlockedCustomerResponseModel, BlockedCustomerRequestModel>
+public class BlockedCustomerService: BaseService<BlockedCustomerEntity, BlockedCustomerResponseModel, BlockedCustomerRequestModel>,IBlockedCustomerService
 {
     private readonly IBlockedCustomerRepository _blockedCustomerRepository;
     private readonly IMapper _mapper;

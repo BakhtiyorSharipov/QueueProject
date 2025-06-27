@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Net;
 using System.Net.Mime;
+using Application.Common.Interfaces;
 using Application.Common.Interfaces.Repository;
 using Application.Exceptions;
 using Application.Requests.EmployeeRequest;
@@ -10,7 +11,7 @@ using Domain.Model;
 
 namespace Application.Services;
 
-public class EmployeeService: BaseService<EmployeeEntity, EmployeeResponseModel, EmployeeRequestModel>
+public class EmployeeService: BaseService<EmployeeEntity, EmployeeResponseModel, EmployeeRequestModel>,IEmployeeService
 {
     private readonly IEmployeeRepository _employeeRepository;
     private readonly IMapper _mapper;

@@ -2,7 +2,7 @@ namespace Domain.Model;
 
 public class CustomerEntity: BaseEntity
 {
-    public int BlockedCustomerId { get; set; }
+    public int BlockedCustomerEntityId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string PhoneNumber { get; set; }

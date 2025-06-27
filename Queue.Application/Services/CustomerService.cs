@@ -1,4 +1,5 @@
 using System.Net;
+using Application.Common.Interfaces;
 using Application.Common.Interfaces.Repository;
 using Application.Exceptions;
 using Application.Requests.CustomerRequest;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace Application.Services;
 
-public class CustomerService: BaseService<CustomerEntity, CustomerResponseModel, CustomerRequestModel>
+public class CustomerService: BaseService<CustomerEntity, CustomerResponseModel, CustomerRequestModel>,ICustomerService
 {
     private readonly ICustomerRepository _customerRepository;
     private readonly IMapper _mapper;

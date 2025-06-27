@@ -1,4 +1,5 @@
 using System.Net;
+using Application.Common.Interfaces;
 using Application.Common.Interfaces.Repository;
 using Application.Exceptions;
 using Application.Requests.ReviewRequest;
@@ -8,7 +9,7 @@ using Domain.Model;
 
 namespace Application.Services;
 
-public class ReviewService: BaseService<ReviewEntity, ReviewResponseModel, ReviewRequestModel>
+public class ReviewService: BaseService<ReviewEntity, ReviewResponseModel, ReviewRequestModel>,IReviewService
 {
     private readonly IReviewRepository _reviewRepository;
     private readonly IMapper _mapper;

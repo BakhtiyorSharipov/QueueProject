@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Mime;
+using Application.Common.Interfaces;
 using Application.Common.Interfaces.Repository;
 using Application.Exceptions;
 using Application.Requests.QueueRequest;
@@ -9,7 +10,7 @@ using Domain.Model;
 
 namespace Application.Services;
 
-public class QueueService: BaseService<QueueEntity, QueueResponseModel, QueueRequestModel>
+public class QueueService: BaseService<QueueEntity, QueueResponseModel, QueueRequestModel>,IQueueService
 {
     private readonly IQueueRepository _queueRepository;
     private readonly IMapper _mapper;

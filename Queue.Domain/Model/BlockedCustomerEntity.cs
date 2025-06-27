@@ -2,8 +2,8 @@ namespace Domain.Model;
 
 public class BlockedCustomerEntity: BaseEntity
 {
-    public int CompanyId { get; set; }
-    public int CustomerId { get; set; }
+    public int CompanyEntityId { get; set; }
+    public int CustomerEntityId { get; set; }
     public string Reason { get; set; }
     public DateTime BannedUntil { get; set; }
     public bool DoesBandForever { get; set; }
