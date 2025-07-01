@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using QueueInfrastructure.Persistence.DataBase;
@@ -11,9 +12,11 @@ using QueueInfrastructure.Persistence.DataBase;
 namespace QueueInfrastructure.Persistence.DataBase.Migrations
 {
     [DbContext(typeof(EFContext))]
-    partial class EFContextModelSnapshot : ModelSnapshot
+    [Migration("20250701102258_NewChanges")]
+    partial class NewChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,7 +95,7 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("EmailAddress")
+                    b.Property<string>("EmailAddres")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -113,6 +116,8 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("EmailAddres", "PhoneNumber");
 
                     b.ToTable("Customers", (string)null);
                 });

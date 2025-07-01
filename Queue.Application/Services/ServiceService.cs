@@ -20,7 +20,7 @@ public class ServiceService: BaseService<ServiceEntity, ServiceResponseModel, Se
         _mapper = mapper;
     }
 
-    public override void Add(ServiceRequestModel request)
+    public override ServiceResponseModel Add(ServiceRequestModel request)
     {
         var parsedToCreate = request as CreateServiceRequest;
         if (parsedToCreate==null)
@@ -31,6 +31,9 @@ public class ServiceService: BaseService<ServiceEntity, ServiceResponseModel, Se
         var mappedToService = _mapper.Map<CreateServiceRequest, ServiceEntity>(parsedToCreate);
         _serviceRepository.Add(mappedToService);
         _serviceRepository.SaveChanges();
+        
+        return _mapper.Map<ServiceEntity, ServiceResponseModel>(mappedToService);
+
     }
 
     public override ServiceResponseModel GetById(int id)

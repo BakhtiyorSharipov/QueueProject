@@ -21,7 +21,7 @@ public class QueueService: BaseService<QueueEntity, QueueResponseModel, QueueReq
         _mapper = mapper;
     }
 
-    public override void Add(QueueRequestModel request)
+    public override QueueResponseModel Add(QueueRequestModel request)
     {
         var parsedToCreate = request as CreateQueueRequest;
         if (parsedToCreate==null)
@@ -32,6 +32,9 @@ public class QueueService: BaseService<QueueEntity, QueueResponseModel, QueueReq
         var mappedToQueue = _mapper.Map<CreateQueueRequest, QueueEntity>(parsedToCreate);
         _queueRepository.Add(mappedToQueue);
         _queueRepository.SaveChanges();
+        
+        return _mapper.Map<QueueEntity, QueueResponseModel>(mappedToQueue);
+
     }
 
     public override QueueResponseModel GetById(int id)

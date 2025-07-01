@@ -6,6 +6,7 @@ using Application.Requests.CompanyRequest;
 using Application.Responses.CompanyResponse;
 using AutoMapper;
 using Domain.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Services;
 
@@ -19,8 +20,8 @@ public class CompanyService: BaseService<CompanyEntity, CompanyResponseModel, Co
         _companyRepository = repository;
         _mapper = mapper;
     }
-
-    public override void Add(CompanyRequestModel request)
+    
+    public override CompanyResponseModel Add(CompanyRequestModel request)
     {
         var parsedToCreate = request as CreateCompanyRequest;
         if (parsedToCreate == null)
@@ -28,10 +29,14 @@ public class CompanyService: BaseService<CompanyEntity, CompanyResponseModel, Co
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(CompanyEntity));
         }
 
-        var mappedToChapter = _mapper.Map<CreateCompanyRequest, CompanyEntity>(parsedToCreate);
-        _companyRepository.Add(mappedToChapter);
+        var mappedToCompany = _mapper.Map<CreateCompanyRequest, CompanyEntity>(parsedToCreate);
+        _companyRepository.Add(mappedToCompany);
         _companyRepository.SaveChanges();
+
+        return _mapper.Map<CompanyEntity, CompanyResponseModel>(mappedToCompany);
     }
+    
+
 
     public override CompanyResponseModel GetById(int id)
     {

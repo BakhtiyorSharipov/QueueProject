@@ -21,7 +21,7 @@ public abstract class BaseService<TEntity, TResponseModel, TRequestModel>: IBase
         _mapper = mapper; 
     }
 
-    public virtual void Add(TRequestModel request)
+    public virtual TResponseModel Add(TRequestModel request)
     {
         throw new NotImplementedException();
     }

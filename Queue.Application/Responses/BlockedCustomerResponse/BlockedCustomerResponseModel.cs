@@ -9,6 +9,6 @@ public class BlockedCustomerResponseModel: BaseResponse
     public string Reason { get; set; }
     public DateTime BannedUntil { get; set; }
     public bool DoesBandForever { get; set; }
-    public CompanyEntity CompanyEntity { get; set; }
-    public CustomerEntity CustomerEntity { get; set; }
+    // public CompanyEntity CompanyEntity { get; set; }
+    // public CustomerEntity CustomerEntity { get; set; }
 }

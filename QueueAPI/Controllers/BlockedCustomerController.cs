@@ -29,9 +29,10 @@ public class BlockedCustomerController: ControllerBase
     }
 
     [HttpPost]
-    public void Post([FromBody] CreateBlockedCustomerRequest blockedCustomerRequest)
+    public IActionResult Post([FromBody] CreateBlockedCustomerRequest blockedCustomerRequest)
     {
-        _blockedCustomerService.Add(blockedCustomerRequest);
+        var createdBlockedCustomer = _blockedCustomerService.Add(blockedCustomerRequest);
+        return CreatedAtAction(nameof(GetById), new { id = createdBlockedCustomer.Id }, createdBlockedCustomer);
     }
 
     [HttpPut("{id}")]

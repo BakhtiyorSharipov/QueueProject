@@ -21,13 +21,20 @@ public class CustomerService: BaseService<CustomerEntity, CustomerResponseModel,
         _mapper = mapper;
     }
 
-    public override void Add(CustomerRequestModel request)
+    public override CustomerResponseModel Add(CustomerRequestModel request)
     {
         var parsedToCreate = request as CreateCustomerRequest;
         if (parsedToCreate ==null)
         {
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(CustomerEntity));
         }
+
+        var mappedToCustomer = _mapper.Map<CreateCustomerRequest, CustomerEntity>(parsedToCreate);
+        _customerRepository.Add(mappedToCustomer);
+        _customerRepository.SaveChanges();
+        
+        return _mapper.Map<CustomerEntity, CustomerResponseModel>(mappedToCustomer);
+
     }
 
     public override CustomerResponseModel GetById(int id)

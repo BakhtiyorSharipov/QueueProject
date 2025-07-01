@@ -20,7 +20,7 @@ public class ReviewService: BaseService<ReviewEntity, ReviewResponseModel, Revie
         _mapper = mapper;
     }
 
-    public override void Add(ReviewRequestModel request)
+    public override ReviewResponseModel Add(ReviewRequestModel request)
     {
         var parsedToCreate = request as CreateReviewRequest;
         if (parsedToCreate==null)
@@ -31,6 +31,9 @@ public class ReviewService: BaseService<ReviewEntity, ReviewResponseModel, Revie
         var mappedToReview = _mapper.Map<CreateReviewRequest, ReviewEntity>(parsedToCreate);
         _reviewRepository.Add(mappedToReview);
         _reviewRepository.SaveChanges();
+        
+        return _mapper.Map<ReviewEntity, ReviewResponseModel>(mappedToReview);
+
     }
 
     public override ReviewResponseModel GetById(int id)

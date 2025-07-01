@@ -35,9 +35,11 @@ public class CompanyController: ControllerBase
     
     //POST api/<CompanyController>
     [HttpPost]
-    public void Post([FromBody] CreateCompanyRequest companyRequest)
+    
+    public IActionResult Post([FromBody] CreateCompanyRequest companyRequest)
     {
-        _companyService.Add(companyRequest);
+        var createdCompany = _companyService.Add(companyRequest);
+        return CreatedAtAction(nameof(GetById), new { id = createdCompany.Id }, createdCompany);
     }
 
     //PUT api/<CompanyControoler>/5
@@ -53,7 +55,5 @@ public class CompanyController: ControllerBase
     {
         _companyService.Delete(id);
     }
-    
-    
     
 }

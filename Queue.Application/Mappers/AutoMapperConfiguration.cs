@@ -22,8 +22,8 @@ public class AutoMapperConfiguration: Profile
     public AutoMapperConfiguration()
     {
         CreateMap<CompanyRequestModel, CompanyEntity>();
-        CreateMap<CompanyEntity, CompanyResponseModel>();
         CreateMap<UpdateCompanyRequest, CompanyEntity>();
+        CreateMap<CompanyEntity, CompanyResponseModel>();
 
         CreateMap<BlockedCustomerRequestModel, BlockedCustomerEntity>();
         CreateMap<BlockedCustomerEntity, BlockedCustomerResponseModel>();
@@ -37,7 +37,7 @@ public class AutoMapperConfiguration: Profile
         CreateMap<EmployeeEntity, EmployeeResponseModel>();
         CreateMap<UpdateEmployeeRequest, EmployeeEntity>();
 
-        CreateMap<QueueResponseModel, QueueEntity>();
+        CreateMap<QueueRequestModel, QueueEntity>();
         CreateMap<QueueEntity, QueueResponseModel>();
         CreateMap<UpdateQueueRequest, QueueEntity>();
 

@@ -12,7 +12,7 @@ public class QueueResponseModel: BaseResponse
     public DateTime EndTime { get; set; }
     public string CancelReason { get; set; }
     
-    public EmployeeEntity EmployeeEntity { get; set; }
-    public CustomerEntity CustomerEntity { get; set; }
-    public ServiceEntity ServiceEntity { get; set; }
+    // public EmployeeEntity EmployeeEntity { get; set; }
+    // public CustomerEntity CustomerEntity { get; set; }
+    // public ServiceEntity ServiceEntity { get; set; }
 }

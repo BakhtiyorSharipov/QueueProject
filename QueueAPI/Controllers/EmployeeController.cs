@@ -30,9 +30,10 @@ public class EmployeeController: ControllerBase
     }
 
     [HttpPost] 
-    public void Post([FromBody] CreateEmployeeRequest employeeRequest)
+    public IActionResult Post([FromBody] CreateEmployeeRequest employeeRequest)
     {
-        _employeeService.Add(employeeRequest);
+        var createdEmployee = _employeeService.Add(employeeRequest);
+        return CreatedAtAction(nameof(GetById), new { id = createdEmployee.Id }, createdEmployee);
     }
 
     [HttpPut("{id}")]

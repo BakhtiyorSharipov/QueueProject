@@ -25,15 +25,16 @@ public class QueueController: ControllerBase
     }
 
     [HttpGet("{id}")]
-    public QueueResponseModel GetBuId(int id)
+    public QueueResponseModel GetById(int id)
     {
         return _queueService.GetById(id);
     }
 
     [HttpPost]
-    public void Post([FromBody] CreateQueueRequest queueRequest)
+    public IActionResult Post([FromBody] CreateQueueRequest queueRequest)
     {
-        _queueService.Add(queueRequest);
+        var createdQueue = _queueService.Add(queueRequest);
+        return CreatedAtAction(nameof(GetById), new { id = createdQueue.Id }, createdQueue);
     }
 
     [HttpPut("{id}")]

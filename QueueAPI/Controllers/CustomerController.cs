@@ -30,9 +30,10 @@ public class CustomerController: ControllerBase
     }
 
     [HttpPost]
-    public void Post([FromBody] CreateCustomerRequest customerRequest)
+    public IActionResult Post([FromBody] CreateCustomerRequest customerRequest)
     {
-        _customerService.Add(customerRequest);
+        var createdCustomer = _customerService.Add(customerRequest);
+        return CreatedAtAction(nameof(GetById), new { id = createdCustomer.Id }, createdCustomer);
     }
 
     [HttpPut("{id}")]

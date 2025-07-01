@@ -29,9 +29,10 @@ public class ServiceController: ControllerBase
     }
 
     [HttpPost]
-    public void Post([FromBody] CreateServiceRequest serviceRequest)
+    public IActionResult Post([FromBody] CreateServiceRequest serviceRequest)
     {
-        _serviceService.Add(serviceRequest);
+        var createdService = _serviceService.Add(serviceRequest);
+        return CreatedAtAction(nameof(GetById), new { id = createdService.Id }, createdService);
     }
 
     [HttpPut("{id}")]

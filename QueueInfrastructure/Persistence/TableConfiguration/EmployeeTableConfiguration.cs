@@ -11,12 +11,11 @@ public class EmployeeTableConfiguration: IEntityTypeConfiguration<EmployeeEntity
     {
         builder.ToTable("Employees");
         builder.HasKey(s => s.Id);
-        builder.HasAlternateKey(s => new { s.EmailAddress, s.PhoneNumber });
+        // builder.HasAlternateKey(s => new { s.EmailAddress, s.PhoneNumber });
         builder.HasOne(s => s.ServiceEntity)
-            .WithMany(s => s.EmployeeEntities);
-            // .HasForeignKey(s=>s.ServiceId);
+            .WithMany(s => s.EmployeeEntities)
+            .HasForeignKey(s => s.ServiceEntityId);
         builder.HasMany(s => s.QueueEntities)
             .WithOne(s => s.EmployeeEntity);
-            // .HasForeignKey(s => new { s.CustomerId, s.ServiceId, s.EmployeeId });
     }
 }

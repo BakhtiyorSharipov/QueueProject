@@ -16,6 +16,15 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         _set = context.Set<TEntity>();
         _context = context;
     }
+    public void Add(TEntity entity)
+    {
+        _set.Add(entity);
+    }
+    
+    public void Delete(TEntity entity)
+    {
+        _set.Remove(entity);
+    }
     public TEntity FindById(int id)
     {
         var foundEntity = _set.Find(id);
@@ -29,24 +38,15 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
 
     public IQueryable<TEntity> GetAll(int pageList, int pageNumber)
     {
-        return _set.Skip<TEntity>(pageList * pageNumber).Take<TEntity>(pageList);
+        // return _set.Skip<TEntity>(pageList * pageNumber).Take<TEntity>(pageList);
+        return _set.Skip((pageNumber - 1) * pageList).Take(pageList);
     }
 
-    public void Add(TEntity entity)
-    {
-        _set.Add(entity);
-    }
+    public int SaveChanges()=>_context.SaveChanges();
 
     public void Update(TEntity entity)
     {
         _set.Update(entity);
     }
-
-    public void Delete(TEntity entity)
-    {
-        _set.Remove(entity);
-    }
-
-    public int SaveChanges()=>_context.SaveChanges();
     
 }

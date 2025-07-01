@@ -30,9 +30,10 @@ public class ReviewController: ControllerBase
     }
 
     [HttpPost]
-    public void Post([FromBody] CreateReviewRequest reviewRequest)
+    public IActionResult Post([FromBody] CreateReviewRequest reviewRequest)
     {
-        _reviewService.Add(reviewRequest);
+        var createdReview = _reviewService.Add(reviewRequest);
+        return CreatedAtAction(nameof(GetById), new { id = createdReview.Id }, createdReview);
     }
 
     [HttpPut("{id}")]

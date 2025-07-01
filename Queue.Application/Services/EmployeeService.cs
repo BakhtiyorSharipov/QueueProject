@@ -22,7 +22,7 @@ public class EmployeeService: BaseService<EmployeeEntity, EmployeeResponseModel,
         _mapper = mapper;
     }
 
-    public override void Add(EmployeeRequestModel request)
+    public override EmployeeResponseModel Add(EmployeeRequestModel request)
     {
         var parsedToCreate = request as CreateEmployeeRequest;
         if (parsedToCreate==null)
@@ -33,6 +33,9 @@ public class EmployeeService: BaseService<EmployeeEntity, EmployeeResponseModel,
         var mappedToEmployee = _mapper.Map<CreateEmployeeRequest, EmployeeEntity>(parsedToCreate);
         _employeeRepository.Add(mappedToEmployee);
         _employeeRepository.SaveChanges();
+        
+        return _mapper.Map<EmployeeEntity, EmployeeResponseModel>(mappedToEmployee);
+
     }
 
     public override EmployeeResponseModel GetById(int id)

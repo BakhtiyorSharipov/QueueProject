@@ -20,7 +20,7 @@ public class BlockedCustomerService: BaseService<BlockedCustomerEntity, BlockedC
         _mapper = mapper;
     }
 
-    public override void Add(BlockedCustomerRequestModel request)
+    public override BlockedCustomerResponseModel Add(BlockedCustomerRequestModel request)
     {
         var parsedToCreate = request as CreateBlockedCustomerRequest;
         if (parsedToCreate==null)
@@ -31,6 +31,9 @@ public class BlockedCustomerService: BaseService<BlockedCustomerEntity, BlockedC
         var mappedToResponse = _mapper.Map<CreateBlockedCustomerRequest, BlockedCustomerEntity>(parsedToCreate);
         _blockedCustomerRepository.Add(mappedToResponse);
         _blockedCustomerRepository.SaveChanges();
+        
+        return _mapper.Map<BlockedCustomerEntity, BlockedCustomerResponseModel>(mappedToResponse);
+
     }
 
     public override BlockedCustomerResponseModel GetById(int id)
