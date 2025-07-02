@@ -65,6 +65,10 @@ public class QueueService: BaseService<QueueEntity, QueueResponseModel, QueueReq
         }
 
         var queueRequestToUpdate = request as UpdateQueueRequest;
+        if (queueRequestToUpdate == null)
+        {
+            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(QueueEntity));
+        }
         var result = _mapper.Map(queueRequestToUpdate, dbQueue);
         _queueRepository.Update(dbQueue);
         _queueRepository.SaveChanges();

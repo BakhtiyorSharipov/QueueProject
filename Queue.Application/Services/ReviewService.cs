@@ -64,6 +64,10 @@ public class ReviewService: BaseService<ReviewEntity, ReviewResponseModel, Revie
         }
 
         var reviewRequestToUpdate = request as UpdateReviewRequest;
+        if (reviewRequestToUpdate == null)
+        {
+            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(ReviewEntity));
+        }
         var result = _mapper.Map(reviewRequestToUpdate, dbReview);
         _reviewRepository.Update(dbReview);
         _reviewRepository.SaveChanges();

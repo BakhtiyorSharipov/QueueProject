@@ -1,5 +1,7 @@
+using System.Net;
 using System.Security.AccessControl;
 using Application.Common.Interfaces.Repository;
+using Application.Exceptions;
 using Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using QueueInfrastructure.Persistence.DataBase;
@@ -28,10 +30,10 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     public TEntity FindById(int id)
     {
         var foundEntity = _set.Find(id);
-        if (foundEntity==null)
-        {
-            throw new ArgumentNullException(nameof(foundEntity));
-        }
+        // if (foundEntity==null)
+        // {
+        //     throw new HttpStatusCodeException(HttpStatusCode.NotFound, typeof(TEntity).Name);
+        // }
 
         return foundEntity;
     }

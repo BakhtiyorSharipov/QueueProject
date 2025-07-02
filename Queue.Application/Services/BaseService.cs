@@ -1,5 +1,7 @@
+using System.Net;
 using Application.Common.Interfaces;
 using Application.Common.Interfaces.Repository;
+using Application.Exceptions;
 using Application.Requests;
 using Application.Responses;
 using AutoMapper;
@@ -45,5 +47,17 @@ public abstract class BaseService<TEntity, TResponseModel, TRequestModel>: IBase
     {
         throw new NotImplementedException();
     }
+    
+    // public virtual TResponseModel GetById(int id)
+    // {
+    //     var foundEntity = _repository.FindById(id);
+    //     if (foundEntity == null)
+    //     {
+    //         throw new HttpStatusCodeException(HttpStatusCode.NotFound, typeof(TEntity).Name);
+    //     }
+    //
+    //     return _mapper.Map<TResponseModel>(foundEntity);
+    // }
+
     
 }

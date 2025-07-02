@@ -66,6 +66,10 @@ public class BlockedCustomerService: BaseService<BlockedCustomerEntity, BlockedC
         }
 
         var blockedCustomerRequestToUpdate = request as UpdateBlockedCustomerRequest;
+        if (blockedCustomerRequestToUpdate == null)
+        {
+            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(BlockedCustomerEntity));
+        }
         var result = _mapper.Map(blockedCustomerRequestToUpdate, dbBlockedCustomer); 
         _blockedCustomerRepository.Update(dbBlockedCustomer);
         _blockedCustomerRepository.SaveChanges();

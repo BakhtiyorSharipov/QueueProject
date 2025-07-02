@@ -66,6 +66,10 @@ public class CompanyService: BaseService<CompanyEntity, CompanyResponseModel, Co
         }
 
         var companyRequestToUpdate = request as UpdateCompanyRequest;
+        if (companyRequestToUpdate == null)
+        {
+            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(CompanyEntity));
+        }
         var result = _mapper.Map(companyRequestToUpdate, dbCompany);
         _companyRepository.Update(dbCompany);
         _companyRepository.SaveChanges();

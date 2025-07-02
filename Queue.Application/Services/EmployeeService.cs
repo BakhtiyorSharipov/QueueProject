@@ -62,10 +62,14 @@ public class EmployeeService: BaseService<EmployeeEntity, EmployeeResponseModel,
         var dbEmployee = _employeeRepository.FindById(id);
         if (dbEmployee==null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound);
+            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(EmployeeEntity));
         }
 
         var employeeRequestToUpdate = request as UpdateEmployeeRequest;
+        if (employeeRequestToUpdate == null)
+        {
+            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(EmployeeEntity));
+        }
         var result = _mapper.Map(employeeRequestToUpdate, dbEmployee);
         _employeeRepository.Update(dbEmployee);
         _employeeRepository.SaveChanges();

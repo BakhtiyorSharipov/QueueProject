@@ -64,6 +64,10 @@ public class ServiceService: BaseService<ServiceEntity, ServiceResponseModel, Se
         }
 
         var serviceRequestToUpdate = request as UpdateServiceRequest;
+        if (serviceRequestToUpdate == null)
+        {
+            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(ServiceEntity));
+        }
         var result = _mapper.Map(serviceRequestToUpdate, dbService);
         _serviceRepository.Update(dbService);
         _serviceRepository.SaveChanges();

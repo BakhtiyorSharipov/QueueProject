@@ -65,6 +65,10 @@ public class CustomerService: BaseService<CustomerEntity, CustomerResponseModel,
         }
 
         var customerRequestToUpdate = request as UpdateCustomerRequest;
+        if (customerRequestToUpdate == null)
+        {
+            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(CustomerEntity));
+        }
         var result = _mapper.Map(customerRequestToUpdate, dbCustomer);
         _customerRepository.Update(dbCustomer);
         _customerRepository.SaveChanges();
