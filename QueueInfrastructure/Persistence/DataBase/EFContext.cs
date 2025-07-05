@@ -20,7 +20,7 @@ public class EFContext: DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Ignore<BaseEntity>();
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(EFContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TableConfiguration.CustomerTableConfiguration).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }

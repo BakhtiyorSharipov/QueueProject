@@ -11,8 +11,4 @@ public class QueueResponseModel: BaseResponse
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
     public string CancelReason { get; set; }
-    
-    public EmployeeEntity EmployeeEntity { get; set; }
-    public CustomerEntity CustomerEntity { get; set; }
-    public ServiceEntity ServiceEntity { get; set; }
 }
