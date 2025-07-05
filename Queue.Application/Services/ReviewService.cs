@@ -25,7 +25,7 @@ public class ReviewService: BaseService<ReviewEntity, ReviewResponseModel, Revie
         var parsedToCreate = request as CreateReviewRequest;
         if (parsedToCreate==null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(ReviewEntity));
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, nameof(ReviewEntity));
         }
 
         var mappedToReview = _mapper.Map<CreateReviewRequest, ReviewEntity>(parsedToCreate);
@@ -41,7 +41,7 @@ public class ReviewService: BaseService<ReviewEntity, ReviewResponseModel, Revie
         var dbReview = _reviewRepository.FindById(id);
         if (dbReview==null )
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(dbReview));
+            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(ReviewEntity));
         }
 
         var mappedToResponse = _mapper.Map<ReviewEntity, ReviewResponseModel>(dbReview);
@@ -66,7 +66,7 @@ public class ReviewService: BaseService<ReviewEntity, ReviewResponseModel, Revie
         var reviewRequestToUpdate = request as UpdateReviewRequest;
         if (reviewRequestToUpdate == null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(ReviewEntity));
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, nameof(ReviewEntity));
         }
         var result = _mapper.Map(reviewRequestToUpdate, dbReview);
         _reviewRepository.Update(dbReview);

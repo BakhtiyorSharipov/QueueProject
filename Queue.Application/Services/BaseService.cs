@@ -48,16 +48,5 @@ public abstract class BaseService<TEntity, TResponseModel, TRequestModel>: IBase
         throw new NotImplementedException();
     }
     
-    // public virtual TResponseModel GetById(int id)
-    // {
-    //     var foundEntity = _repository.FindById(id);
-    //     if (foundEntity == null)
-    //     {
-    //         throw new HttpStatusCodeException(HttpStatusCode.NotFound, typeof(TEntity).Name);
-    //     }
-    //
-    //     return _mapper.Map<TResponseModel>(foundEntity);
-    // }
-
     
 }

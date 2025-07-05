@@ -24,7 +24,7 @@ public class ReviewController: ControllerBase
     }
 
     [HttpGet("{id}")]
-    public ReviewResponseModel GetById(int id)
+    public ReviewResponseModel GetById([FromRoute]int id)
     {
         return _reviewService.GetById(id);
     }
@@ -37,13 +37,13 @@ public class ReviewController: ControllerBase
     }
 
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] ReviewRequestModel reviewRequest)
+    public void Put([FromRoute]int id, [FromBody] ReviewRequestModel reviewRequest)
     {
         _reviewService.Update(id, reviewRequest);
     }
 
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public void Delete([FromRoute]int id)
     {
         _reviewService.Delete(id);
     }

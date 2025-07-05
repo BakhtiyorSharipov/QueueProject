@@ -27,7 +27,7 @@ public class CompanyController: ControllerBase
 
     //GET api<CompanyController>/5
     [HttpGet("{id}")]
-    public CompanyResponseModel GetById(int id)
+    public CompanyResponseModel GetById([FromRoute]int id)
     {
         return _companyService.GetById(id);
     }
@@ -44,14 +44,14 @@ public class CompanyController: ControllerBase
 
     //PUT api/<CompanyControoler>/5
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] UpdateCompanyRequest companyRequest)
+    public void Put([FromRoute]int id, [FromBody] UpdateCompanyRequest companyRequest)
     {
         _companyService.Update(id, companyRequest);
     }
 
     //DELETE api<CompanyController>/5
     [HttpDelete("{id}")]
-    public void Deleta(int id)
+    public void Deleta([FromRoute]int id)
     {
         _companyService.Delete(id);
     }

@@ -13,6 +13,14 @@ public class QueueTableConfiguration: IEntityTypeConfiguration<QueueEntity>
         builder.HasKey(s => s.Id);
         builder.HasOne(s => s.CustomerEntity)
             .WithMany(s => s.QueueEntities)
-            .HasForeignKey(s => s.CustomerEntityId);
+            .HasForeignKey(s => s.CustomerId);
+
+        builder.HasOne(s => s.EmployeeEntity)
+            .WithMany(s => s.QueueEntities)
+            .HasForeignKey(s => s.EmployeeId);
+
+        builder.HasOne(s => s.ServiceEntity)
+            .WithMany()
+            .HasForeignKey(s => s.ServiceId);
     }
 }

@@ -12,7 +12,6 @@ public interface IBaseService<TEntity, TResponseModel, TRequestModel>
 {
     IEnumerable<TResponseModel> GetAll(int pageList, int pageNumber);
     TResponseModel GetById(int id);
-    // void Add(TRequestModel request);
     TResponseModel Add(TRequestModel request);
     TResponseModel Update(int id, TRequestModel request);
     bool Delete(int id);

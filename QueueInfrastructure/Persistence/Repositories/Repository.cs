@@ -30,17 +30,11 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     public TEntity FindById(int id)
     {
         var foundEntity = _set.Find(id);
-        // if (foundEntity==null)
-        // {
-        //     throw new HttpStatusCodeException(HttpStatusCode.NotFound, typeof(TEntity).Name);
-        // }
-
         return foundEntity;
     }
 
     public IQueryable<TEntity> GetAll(int pageList, int pageNumber)
     {
-        // return _set.Skip<TEntity>(pageList * pageNumber).Take<TEntity>(pageList);
         return _set.Skip((pageNumber - 1) * pageList).Take(pageList);
     }
 

@@ -12,8 +12,8 @@ using QueueInfrastructure.Persistence.DataBase;
 namespace QueueInfrastructure.Persistence.DataBase.Migrations
 {
     [DbContext(typeof(EFContext))]
-    [Migration("20250627102707_AddNewChanges")]
-    partial class AddNewChanges
+    [Migration("20250705124351_NewChanges")]
+    partial class NewChanges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,10 +36,10 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                     b.Property<DateTime>("BannedUntil")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("CompanyEntityId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CustomerEntityId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
                     b.Property<bool>("DoesBandForever")
@@ -51,10 +51,9 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyEntityId");
+                    b.HasIndex("CompanyId");
 
-                    b.HasIndex("CustomerEntityId")
-                        .IsUnique();
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("BlockedCustomers", (string)null);
                 });
@@ -85,8 +84,6 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("EmailAddress", "PhoneNumber");
-
                     b.ToTable("Companies", (string)null);
                 });
 
@@ -98,10 +95,7 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BlockedCustomerEntityId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("EmailAddres")
+                    b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -122,8 +116,6 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("EmailAddres", "PhoneNumber");
 
                     b.ToTable("Customers", (string)null);
                 });
@@ -160,14 +152,12 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("ServiceEntityId")
+                    b.Property<int>("ServiceId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("EmailAddress", "PhoneNumber");
-
-                    b.HasIndex("ServiceEntityId");
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("Employees", (string)null);
                 });
@@ -184,20 +174,20 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CustomerEntityId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
                     b.Property<string>("DayOfWeek")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("EmployeeEntityId")
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("ServiceEntityId")
+                    b.Property<int>("ServiceId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("StartTime")
@@ -205,11 +195,11 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerEntityId");
+                    b.HasIndex("CustomerId");
 
-                    b.HasIndex("EmployeeEntityId");
+                    b.HasIndex("EmployeeId");
 
-                    b.HasIndex("ServiceEntityId");
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("Queues", (string)null);
                 });
@@ -222,28 +212,29 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CustomerEntityId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("EmployeeEntityId")
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Grade")
                         .HasColumnType("integer");
 
-                    b.Property<int>("QueueEntityId")
+                    b.Property<int>("QueueId")
                         .HasColumnType("integer");
 
                     b.Property<string>("ReviewText")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerEntityId");
+                    b.HasIndex("CustomerId");
 
-                    b.HasIndex("EmployeeEntityId");
+                    b.HasIndex("EmployeeId");
 
-                    b.HasIndex("QueueEntityId");
+                    b.HasIndex("QueueId");
 
                     b.ToTable("Reviews", (string)null);
                 });
@@ -256,7 +247,7 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CompanyEntityId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("integer");
 
                     b.Property<string>("ServiceDescription")
@@ -269,7 +260,7 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyEntityId");
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Services", (string)null);
                 });
@@ -278,13 +269,13 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                 {
                     b.HasOne("Domain.Model.CompanyEntity", "CompanyEntity")
                         .WithMany()
-                        .HasForeignKey("CompanyEntityId")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Model.CustomerEntity", "CustomerEntity")
-                        .WithOne("BlockedCustomerEntity")
-                        .HasForeignKey("Domain.Model.BlockedCustomerEntity", "CustomerEntityId")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -297,7 +288,7 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                 {
                     b.HasOne("Domain.Model.ServiceEntity", "ServiceEntity")
                         .WithMany("EmployeeEntities")
-                        .HasForeignKey("ServiceEntityId")
+                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -308,19 +299,19 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                 {
                     b.HasOne("Domain.Model.CustomerEntity", "CustomerEntity")
                         .WithMany("QueueEntities")
-                        .HasForeignKey("CustomerEntityId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Model.EmployeeEntity", "EmployeeEntity")
                         .WithMany("QueueEntities")
-                        .HasForeignKey("EmployeeEntityId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Model.ServiceEntity", "ServiceEntity")
                         .WithMany()
-                        .HasForeignKey("ServiceEntityId")
+                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -335,19 +326,19 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                 {
                     b.HasOne("Domain.Model.CustomerEntity", "CustomerEntity")
                         .WithMany("ReviewEntities")
-                        .HasForeignKey("CustomerEntityId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Model.EmployeeEntity", "EmployeeEntity")
                         .WithMany()
-                        .HasForeignKey("EmployeeEntityId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Model.QueueEntity", "QueueEntity")
                         .WithMany()
-                        .HasForeignKey("QueueEntityId")
+                        .HasForeignKey("QueueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -362,7 +353,7 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                 {
                     b.HasOne("Domain.Model.CompanyEntity", "CompanyEntity")
                         .WithMany("ServiceEntities")
-                        .HasForeignKey("CompanyEntityId")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -376,9 +367,6 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
 
             modelBuilder.Entity("Domain.Model.CustomerEntity", b =>
                 {
-                    b.Navigation("BlockedCustomerEntity")
-                        .IsRequired();
-
                     b.Navigation("QueueEntities");
 
                     b.Navigation("ReviewEntities");

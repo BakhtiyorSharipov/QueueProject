@@ -25,7 +25,7 @@ public class QueueController: ControllerBase
     }
 
     [HttpGet("{id}")]
-    public QueueResponseModel GetById(int id)
+    public QueueResponseModel GetById([FromRoute]int id)
     {
         return _queueService.GetById(id);
     }
@@ -38,13 +38,13 @@ public class QueueController: ControllerBase
     }
 
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] QueueRequestModel requestModel)
+    public void Put([FromRoute]int id, [FromBody] QueueRequestModel requestModel)
     {
         _queueService.Update(id, requestModel);
     }
 
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public void Delete([FromRoute]int id)
     {
         _queueService.Delete(id);
     }

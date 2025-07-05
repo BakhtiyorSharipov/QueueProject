@@ -25,7 +25,7 @@ public class ServiceService: BaseService<ServiceEntity, ServiceResponseModel, Se
         var parsedToCreate = request as CreateServiceRequest;
         if (parsedToCreate==null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(ServiceEntity));
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, nameof(ServiceEntity));
         }
 
         var mappedToService = _mapper.Map<CreateServiceRequest, ServiceEntity>(parsedToCreate);
@@ -66,7 +66,7 @@ public class ServiceService: BaseService<ServiceEntity, ServiceResponseModel, Se
         var serviceRequestToUpdate = request as UpdateServiceRequest;
         if (serviceRequestToUpdate == null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(ServiceEntity));
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, nameof(ServiceEntity));
         }
         var result = _mapper.Map(serviceRequestToUpdate, dbService);
         _serviceRepository.Update(dbService);

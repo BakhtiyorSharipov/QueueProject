@@ -25,7 +25,7 @@ public class BlockedCustomerService: BaseService<BlockedCustomerEntity, BlockedC
         var parsedToCreate = request as CreateBlockedCustomerRequest;
         if (parsedToCreate==null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(BlockedCustomerEntity));
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, nameof(BlockedCustomerEntity));
         }
 
         var mappedToResponse = _mapper.Map<CreateBlockedCustomerRequest, BlockedCustomerEntity>(parsedToCreate);
@@ -68,7 +68,7 @@ public class BlockedCustomerService: BaseService<BlockedCustomerEntity, BlockedC
         var blockedCustomerRequestToUpdate = request as UpdateBlockedCustomerRequest;
         if (blockedCustomerRequestToUpdate == null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(BlockedCustomerEntity));
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, nameof(BlockedCustomerEntity));
         }
         var result = _mapper.Map(blockedCustomerRequestToUpdate, dbBlockedCustomer); 
         _blockedCustomerRepository.Update(dbBlockedCustomer);

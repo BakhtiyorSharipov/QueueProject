@@ -23,7 +23,7 @@ public class BlockedCustomerController: ControllerBase
     }
 
     [HttpGet("{id}")]
-    public BlockedCustomerResponseModel GetById(int id)
+    public BlockedCustomerResponseModel GetById([FromRoute]int id)
     {
         return _blockedCustomerService.GetById(id);
     }
@@ -36,13 +36,13 @@ public class BlockedCustomerController: ControllerBase
     }
 
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] BlockedCustomerRequestModel blockedCustomerRequest)
+    public void Put([FromRoute]int id, [FromBody] BlockedCustomerRequestModel blockedCustomerRequest)
     {
         _blockedCustomerService.Update(id, blockedCustomerRequest);
     }
 
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public void Delete([FromRoute]int id)
     {
         _blockedCustomerService.Delete(id);
     }

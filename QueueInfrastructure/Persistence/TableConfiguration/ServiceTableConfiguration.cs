@@ -13,8 +13,10 @@ public class ServiceTableConfiguration: IEntityTypeConfiguration<ServiceEntity>
         builder.HasKey(s => s.Id);
         builder.HasOne(s => s.CompanyEntity)
             .WithMany(s => s.ServiceEntities)
-            .HasForeignKey(s => s.CompanyEntityId);
+            .HasForeignKey(s => s.CompanyId);
+
         builder.HasMany(s => s.EmployeeEntities)
-            .WithOne(s => s.ServiceEntity);
+            .WithOne(s => s.ServiceEntity)
+            .HasForeignKey(s => s.ServiceId);
     }
 }

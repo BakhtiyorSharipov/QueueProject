@@ -23,7 +23,7 @@ public class ServiceController: ControllerBase
     }
 
     [HttpGet("{id}")]
-    public ServiceResponseModel GetById(int id)
+    public ServiceResponseModel GetById([FromRoute]int id)
     {
         return _serviceService.GetById(id);
     }
@@ -36,13 +36,13 @@ public class ServiceController: ControllerBase
     }
 
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] ServiceRequestModel serviceRequest)
+    public void Put([FromRoute]int id, [FromBody] ServiceRequestModel serviceRequest)
     {
         _serviceService.Update(id, serviceRequest);
     }
 
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public void Delete([FromRoute]int id)
     {
         _serviceService.Delete(id);
     }

@@ -12,7 +12,7 @@ public class CompanyTableConfiguration: IEntityTypeConfiguration<CompanyEntity>
         builder.HasKey(s => s.Id);
         builder.HasMany(s => s.ServiceEntities)
             .WithOne(s => s.CompanyEntity)
-            .HasForeignKey(s => s.CompanyEntityId);
-        // builder.HasAlternateKey(s => new {s.EmailAddress, s.PhoneNumber});
+            .HasForeignKey(s => s.CompanyId);
+     
     }
 }

@@ -13,6 +13,14 @@ public class ReviewTableConfiguration: IEntityTypeConfiguration<ReviewEntity>
         builder.HasKey(s => s.Id);
         builder.HasOne(s => s.CustomerEntity)
             .WithMany(s => s.ReviewEntities)
-            .HasForeignKey(s => s.CustomerEntityId);
+            .HasForeignKey(s => s.CustomerId);
+
+        builder.HasOne(s => s.EmployeeEntity)
+            .WithMany()
+            .HasForeignKey(s => s.EmployeeId);
+
+        builder.HasOne(s => s.QueueEntity)
+            .WithMany()
+            .HasForeignKey(s => s.QueueId);
     }
 }

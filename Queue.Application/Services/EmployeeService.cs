@@ -27,7 +27,7 @@ public class EmployeeService: BaseService<EmployeeEntity, EmployeeResponseModel,
         var parsedToCreate = request as CreateEmployeeRequest;
         if (parsedToCreate==null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(EmployeeEntity));
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, nameof(EmployeeEntity));
         }
 
         var mappedToEmployee = _mapper.Map<CreateEmployeeRequest, EmployeeEntity>(parsedToCreate);
@@ -68,7 +68,7 @@ public class EmployeeService: BaseService<EmployeeEntity, EmployeeResponseModel,
         var employeeRequestToUpdate = request as UpdateEmployeeRequest;
         if (employeeRequestToUpdate == null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(EmployeeEntity));
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, nameof(EmployeeEntity));
         }
         var result = _mapper.Map(employeeRequestToUpdate, dbEmployee);
         _employeeRepository.Update(dbEmployee);

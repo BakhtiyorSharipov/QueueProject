@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace QueueInfrastructure.Persistence.DataBase.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class NewChanges : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,7 +26,6 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
-                    table.UniqueConstraint("AK_Companies_EmailAddress_PhoneNumber", x => new { x.EmailAddress, x.PhoneNumber });
                 });
 
             migrationBuilder.CreateTable(
@@ -35,17 +34,15 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    BlockedCustomerId = table.Column<int>(type: "integer", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
                     PhoneNumber = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
-                    EmailAddres = table.Column<string>(type: "text", nullable: false)
+                    EmailAddress = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
-                    table.UniqueConstraint("AK_Customers_EmailAddres_PhoneNumber", x => new { x.EmailAddres, x.PhoneNumber });
                 });
 
             migrationBuilder.CreateTable(
@@ -56,15 +53,14 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CompanyId = table.Column<int>(type: "integer", nullable: false),
                     ServiceName = table.Column<string>(type: "text", nullable: false),
-                    ServiceDescription = table.Column<string>(type: "text", nullable: false),
-                    CompanyEntityId = table.Column<int>(type: "integer", nullable: false)
+                    ServiceDescription = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Services", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Services_Companies_CompanyEntityId",
-                        column: x => x.CompanyEntityId,
+                        name: "FK_Services_Companies_CompanyId",
+                        column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -80,15 +76,14 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                     CustomerId = table.Column<int>(type: "integer", nullable: false),
                     Reason = table.Column<string>(type: "text", nullable: false),
                     BannedUntil = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DoesBandForever = table.Column<bool>(type: "boolean", nullable: false),
-                    CompanyEntityId = table.Column<int>(type: "integer", nullable: false)
+                    DoesBandForever = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BlockedCustomers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BlockedCustomers_Companies_CompanyEntityId",
-                        column: x => x.CompanyEntityId,
+                        name: "FK_BlockedCustomers_Companies_CompanyId",
+                        column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -112,16 +107,14 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                     Position = table.Column<string>(type: "text", nullable: false),
                     PhoneNumber = table.Column<string>(type: "text", nullable: false),
                     EmailAddress = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false),
-                    ServiceEntityId = table.Column<int>(type: "integer", nullable: false)
+                    Password = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employees", x => x.Id);
-                    table.UniqueConstraint("AK_Employees_EmailAddress_PhoneNumber", x => new { x.EmailAddress, x.PhoneNumber });
                     table.ForeignKey(
-                        name: "FK_Employees_Services_ServiceEntityId",
-                        column: x => x.ServiceEntityId,
+                        name: "FK_Employees_Services_ServiceId",
+                        column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -139,29 +132,26 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                     DayOfWeek = table.Column<string>(type: "text", nullable: false),
                     StartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CancelReason = table.Column<string>(type: "text", nullable: false),
-                    EmployeeEntityId = table.Column<int>(type: "integer", nullable: false),
-                    CustomerEntityId = table.Column<int>(type: "integer", nullable: false),
-                    ServiceEntityId = table.Column<int>(type: "integer", nullable: false)
+                    CancelReason = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Queues", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Queues_Customers_CustomerEntityId",
-                        column: x => x.CustomerEntityId,
+                        name: "FK_Queues_Customers_CustomerId",
+                        column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Queues_Employees_EmployeeEntityId",
-                        column: x => x.EmployeeEntityId,
+                        name: "FK_Queues_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Queues_Services_ServiceEntityId",
-                        column: x => x.ServiceEntityId,
+                        name: "FK_Queues_Services_ServiceId",
+                        column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -177,84 +167,80 @@ namespace QueueInfrastructure.Persistence.DataBase.Migrations
                     EmployeeId = table.Column<int>(type: "integer", nullable: false),
                     QueueId = table.Column<int>(type: "integer", nullable: false),
                     Grade = table.Column<int>(type: "integer", nullable: false),
-                    ReviewText = table.Column<string>(type: "text", nullable: true),
-                    CustomerEntityId = table.Column<int>(type: "integer", nullable: false),
-                    EmployeeEntityId = table.Column<int>(type: "integer", nullable: false),
-                    QueueEntityId = table.Column<int>(type: "integer", nullable: false)
+                    ReviewText = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reviews", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reviews_Customers_CustomerEntityId",
-                        column: x => x.CustomerEntityId,
+                        name: "FK_Reviews_Customers_CustomerId",
+                        column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reviews_Employees_EmployeeEntityId",
-                        column: x => x.EmployeeEntityId,
+                        name: "FK_Reviews_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reviews_Queues_QueueEntityId",
-                        column: x => x.QueueEntityId,
+                        name: "FK_Reviews_Queues_QueueId",
+                        column: x => x.QueueId,
                         principalTable: "Queues",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BlockedCustomers_CompanyEntityId",
+                name: "IX_BlockedCustomers_CompanyId",
                 table: "BlockedCustomers",
-                column: "CompanyEntityId");
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BlockedCustomers_CustomerId",
                 table: "BlockedCustomers",
-                column: "CustomerId",
-                unique: true);
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_ServiceEntityId",
+                name: "IX_Employees_ServiceId",
                 table: "Employees",
-                column: "ServiceEntityId");
+                column: "ServiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Queues_CustomerEntityId",
+                name: "IX_Queues_CustomerId",
                 table: "Queues",
-                column: "CustomerEntityId");
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Queues_EmployeeEntityId",
+                name: "IX_Queues_EmployeeId",
                 table: "Queues",
-                column: "EmployeeEntityId");
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Queues_ServiceEntityId",
+                name: "IX_Queues_ServiceId",
                 table: "Queues",
-                column: "ServiceEntityId");
+                column: "ServiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reviews_CustomerEntityId",
+                name: "IX_Reviews_CustomerId",
                 table: "Reviews",
-                column: "CustomerEntityId");
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reviews_EmployeeEntityId",
+                name: "IX_Reviews_EmployeeId",
                 table: "Reviews",
-                column: "EmployeeEntityId");
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reviews_QueueEntityId",
+                name: "IX_Reviews_QueueId",
                 table: "Reviews",
-                column: "QueueEntityId");
+                column: "QueueId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_CompanyEntityId",
+                name: "IX_Services_CompanyId",
                 table: "Services",
-                column: "CompanyEntityId");
+                column: "CompanyId");
         }
 
         /// <inheritdoc />

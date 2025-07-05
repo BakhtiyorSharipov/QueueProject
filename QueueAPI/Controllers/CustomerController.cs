@@ -24,7 +24,7 @@ public class CustomerController: ControllerBase
     }
 
     [HttpGet("{id}")]
-    public CustomerResponseModel GetById(int id)
+    public CustomerResponseModel GetById([FromRoute]int id)
     {
         return _customerService.GetById(id);
     }
@@ -37,13 +37,13 @@ public class CustomerController: ControllerBase
     }
 
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] CustomerRequestModel customerRequest)
+    public void Put([FromRoute]int id, [FromBody] CustomerRequestModel customerRequest)
     {
         _customerService.Update(id, customerRequest);
     }
 
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public void Delete([FromRoute]int id)
     {
         _customerService.Delete(id);
     }

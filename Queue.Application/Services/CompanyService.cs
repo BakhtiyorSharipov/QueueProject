@@ -26,7 +26,7 @@ public class CompanyService: BaseService<CompanyEntity, CompanyResponseModel, Co
         var parsedToCreate = request as CreateCompanyRequest;
         if (parsedToCreate == null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(CompanyEntity));
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, nameof(CompanyEntity));
         }
 
         var mappedToCompany = _mapper.Map<CreateCompanyRequest, CompanyEntity>(parsedToCreate);
@@ -68,7 +68,7 @@ public class CompanyService: BaseService<CompanyEntity, CompanyResponseModel, Co
         var companyRequestToUpdate = request as UpdateCompanyRequest;
         if (companyRequestToUpdate == null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(CompanyEntity));
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, nameof(CompanyEntity));
         }
         var result = _mapper.Map(companyRequestToUpdate, dbCompany);
         _companyRepository.Update(dbCompany);

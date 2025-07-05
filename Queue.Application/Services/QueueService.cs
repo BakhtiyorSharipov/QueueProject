@@ -26,7 +26,7 @@ public class QueueService: BaseService<QueueEntity, QueueResponseModel, QueueReq
         var parsedToCreate = request as CreateQueueRequest;
         if (parsedToCreate==null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(QueueEntity));
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, nameof(QueueEntity));
         }
 
         var mappedToQueue = _mapper.Map<CreateQueueRequest, QueueEntity>(parsedToCreate);
@@ -67,7 +67,7 @@ public class QueueService: BaseService<QueueEntity, QueueResponseModel, QueueReq
         var queueRequestToUpdate = request as UpdateQueueRequest;
         if (queueRequestToUpdate == null)
         {
-            throw new HttpStatusCodeException(HttpStatusCode.NotFound, nameof(QueueEntity));
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, nameof(QueueEntity));
         }
         var result = _mapper.Map(queueRequestToUpdate, dbQueue);
         _queueRepository.Update(dbQueue);

@@ -24,7 +24,7 @@ public class EmployeeController: ControllerBase
     }
 
     [HttpGet("{id}")]
-    public EmployeeResponseModel GetById(int id)
+    public EmployeeResponseModel GetById([FromRoute]int id)
     {
         return _employeeService.GetById(id);
     }
@@ -37,13 +37,13 @@ public class EmployeeController: ControllerBase
     }
 
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] EmployeeRequestModel requestModel)
+    public void Put([FromRoute]int id, [FromBody] EmployeeRequestModel requestModel)
     {
         _employeeService.Update(id, requestModel);
     }
 
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public void Delete([FromRoute]int id)
     {
         _employeeService.Delete(id);
     }
